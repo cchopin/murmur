@@ -1,0 +1,4 @@
+{
+  "alice": "BASE64_PUBLIC_KEY_HERE",
+  "bob": "BASE64_PUBLIC_KEY_HERE"
+}

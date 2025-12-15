@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  murmur:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: murmur-server
+    restart: unless-stopped
+    ports:
+      - "6697:6697"
+    volumes:
+      - ./docker-data/certs:/app/certs
+      - ./docker-data/data:/app/data
+    environment:
+      - TZ=Europe/Paris
+    # Securite
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    cap_add:
+      - NET_BIND_SERVICE
+    read_only: true
+    tmpfs:
+      - /tmp:noexec,nosuid,size=10m
+    # Ressources (Raspberry Pi)
+    deploy:
+      resources:
+        limits:
+          memory: 128M
+        reservations:
+          memory: 32M
+    # Health check
+    healthcheck:
+      test: ["CMD", "nc", "-z", "localhost", "6697"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s

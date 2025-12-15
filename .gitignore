@@ -1,0 +1,39 @@
+# Binaires compiles
+murmur_server
+tools/keygen
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Donnees utilisateur
+users.json
+tokens.json
+
+# Certificats et cles
+certs/
+*.crt
+*.key
+*.pem
+*.p12
+
+# Configuration locale
+config.json
+
+# Docker runtime
+docker-data/
+
+# Nim cache
+nimcache/
+nimblecache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db

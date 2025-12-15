@@ -1,0 +1,26 @@
+# Git
+.git
+.gitignore
+
+# Build artifacts
+murmur_server
+tools/keygen
+*.o
+nimcache/
+
+# Docker data (don't include in build context)
+docker-data/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Documentation (not needed in image)
+RFC_MURMUR.md
+*.md
+
+# Local config
+users.json
+certs/
