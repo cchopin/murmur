@@ -102,9 +102,7 @@ Save your private key securely.
 
 **Step 2: Connect to the server**
 
-```bash
-openssl s_client -connect <server>:6697
-```
+See [Client Connection](#client-connection) for setup instructions.
 
 **Step 3: Register with your token**
 
@@ -133,26 +131,29 @@ See [RFC_MURMUR.md](RFC_MURMUR.md) for signature computation details.
 
 ## Client Connection
 
-### Direct Connection (LAN)
+MURMUR uses Cloudflare Tunnel for secure public access. Clients need `cloudflared` installed.
+
+### Install cloudflared
 
 ```bash
-openssl s_client -connect <server-ip>:6697
+# Linux
+curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared
+chmod +x cloudflared
+
+# macOS
+brew install cloudflared
+
+# Windows
+winget install Cloudflare.cloudflared
 ```
 
-### Via Cloudflare Tunnel (Public Access)
-
-If the server is behind a Cloudflare Tunnel:
+### Connect
 
 ```bash
-# Install cloudflared
-# Linux: curl -L https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -o cloudflared && chmod +x cloudflared
-# macOS: brew install cloudflared
-# Windows: winget install Cloudflare.cloudflared
+# Terminal 1: Start the tunnel (keep running)
+cloudflared access tcp --hostname <server-hostname> --url localhost:6697
 
-# Start local tunnel
-cloudflared access tcp --hostname <tunnel-hostname> --url localhost:6697
-
-# Connect via localhost
+# Terminal 2: Connect to the server
 openssl s_client -connect localhost:6697
 ```
 
